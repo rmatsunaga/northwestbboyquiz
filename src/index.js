@@ -6,10 +6,30 @@ function Answer(props) {
 
     return(
       <div>
-        <input type="radio" value = {props.answer[0]} name= {props.qNum + ""} onClick = {(e) => props.onCorrect(e)}/>{props.answer[0]} <br />
-        <input type="radio" value = {props.answer[1]} name= {props.qNum + ""} onClick = {(e) => props.onCorrect(e)}/>{props.answer[1]} <br />
-        <input type="radio" value = {props.answer[2]} name= {props.qNum + ""} onClick = {(e) => props.onCorrect(e)}/>{props.answer[2]} <br />
-        <input type="radio" value = {props.answer[3]} name= {props.qNum + ""} onClick = {(e) => props.onCorrect(e)}/>{props.answer[3]} <br />
+        <input
+          type="radio"
+          value = {props.answer[0]}
+          name= {props.qNum}
+          onClick = {(e) => props.onCorrect(e)}
+        /> {props.answer[0]} <br />
+        <input
+          type="radio"
+          value = {props.answer[1]}
+          name= {props.qNum}
+          onClick = {(e) => props.onCorrect(e)}
+        /> {props.answer[1]} <br />
+        <input
+          type="radio"
+          value = {props.answer[2]}
+          name= {props.qNum}
+          onClick = {(e) => props.onCorrect(e)}
+        />{props.answer[2]} <br />
+        <input
+          type="radio"
+          value = {props.answer[3]}
+          name= {props.qNum}
+          onClick = {(e) => props.onCorrect(e)}
+        />{props.answer[3]} <br />
       </div>
   );
 }
@@ -46,15 +66,63 @@ class Quiz extends React.Component {
       answer: ["2017", "Bboy Kulani", "Alien Ness", "Pro Kids 10th Ann"],
       totalQuestions: 4,
       result: true,
+      q1Correct: false,
+      q2Correct: false,
+      q3Correct: false,
+      q4Correct: false
     };
   };
 
   handleClick(e) {
-    if(e.target.value === this.state.answer[0] || e.target.value === this.state.answer[1] || e.target.value === this.state.answer[2] || e.target.value === this.state.answer[3]){
-      this.setState((state) => ({
-        correctQuestions: this.state.correctQuestions + 1}),
-        console.log(e.value)
-      );
+
+    if(e.target.name === "0"){
+      if(e.target.value === this.state.answer[0]){
+        this.setState((state) => ({
+          correctQuestions: this.state.correctQuestions + 1,
+          q1Correct: true
+        }))
+      } else if (this.state.q1Correct) {
+        this.setState((state)=>({
+          correctQuestions: this.state.correctQuestions - 1,
+          q1Correct: false
+        }))
+      }
+    } else if(e.target.name === "1"){
+      if(e.target.value === this.state.answer[1]){
+        this.setState((state)=>({
+          correctQuestions: this.state.correctQuestions + 1,
+          q2Correct: true
+        }))
+      } else if (this.state.q2Correct) {
+        this.setState((state)=>({
+          correctQuestions: this.state.correctQuestions - 1,
+          q2Correct: false
+        }))
+      }
+    } else if(e.target.name === "2"){
+      if(e.target.value === this.state.answer[2]){
+        this.setState((state)=>({
+          correctQuestions: this.state.correctQuestions + 1,
+          q3Correct: true
+        }))
+      } else if (this.state.q3Correct) {
+        this.setState((state)=>({
+          correctQuestions: this.state.correctQuestions - 1,
+          q3Correct: false
+        }))
+      }
+    } else if(e.target.name === "3"){
+      if(e.target.value === this.state.answer[3]){
+        this.setState((state)=>({
+          correctQuestions: this.state.correctQuestions + 1,
+          q4Correct: true
+        }))
+      } else if (this.state.q4Correct) {
+        this.setState((state)=>({
+          correctQuestions: this.state.correctQuestions - 1,
+          q4Correct: false
+        }))
+      }
     }
   }
 
@@ -62,13 +130,13 @@ class Quiz extends React.Component {
     return(
       <form>
         <Question qNum = {0} question={this.state.question} />
-        <Answer qNum = {0} answer={this.state.userAnswer[0]} onCorrect={i => this.handleClick(i)}/>
+        <Answer qNum = {0} answer={this.state.userAnswer[0]} onCorrect={i => this.handleClick(i)} q4Correct= {this.state.q1Correct}/>
         <Question qNum = {1} question={this.state.question} />
-        <Answer qNum = {1} answer={this.state.userAnswer[1]} onCorrect={i => this.handleClick(i)}/>
+        <Answer qNum = {1} answer={this.state.userAnswer[1]} onCorrect={i => this.handleClick(i)} q4Correct= {this.state.q2Correct}/>
         <Question qNum = {2} question={this.state.question} />
-        <Answer qNum = {2} answer={this.state.userAnswer[2]} onCorrect={i => this.handleClick(i)}/>
+        <Answer qNum = {2} answer={this.state.userAnswer[2]} onCorrect={i => this.handleClick(i)} q4Correct= {this.state.q3Correct}/>
         <Question qNum = {3} question={this.state.question} />
-        <Answer qNum = {3} answer={this.state.userAnswer[3]} onCorrect={i => this.handleClick(i)}/>
+        <Answer qNum = {3} answer={this.state.userAnswer[3]} onCorrect={i => this.handleClick(i)} q4Correct= {this.state.q4Correct}/>
         <input type="submit" onClick = {(e) => {
           e.preventDefault();
           return(
