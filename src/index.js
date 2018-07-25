@@ -1,35 +1,37 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Card, CardImg, CardText, CardBody,
+  CardTitle, CardSubtitle, Button } from 'reactstrap';
 import './index.css';
 
 function Answer(props) {
 
     return(
-      <div>
-        <input
+      <div className = "answerBundle">
+        <CardText><input
           type="radio"
           value = {props.answer[0]}
           name= {props.qNum}
           onClick = {(e) => props.onCorrect(e)}
-        /> {props.answer[0]} <br />
-        <input
+        />{props.answer[0]}<br /></CardText>
+        <CardText><input
           type="radio"
           value = {props.answer[1]}
           name= {props.qNum}
           onClick = {(e) => props.onCorrect(e)}
-        /> {props.answer[1]} <br />
-        <input
+        />{props.answer[1]}<br /></CardText>
+        <CardText><input
           type="radio"
           value = {props.answer[2]}
           name= {props.qNum}
           onClick = {(e) => props.onCorrect(e)}
-        />{props.answer[2]} <br />
-        <input
-          type="radio"
-          value = {props.answer[3]}
-          name= {props.qNum}
-          onClick = {(e) => props.onCorrect(e)}
-        />{props.answer[3]} <br />
+        />{props.answer[2]}<br /></CardText>
+        <CardText>  <input
+            type="radio"
+            value = {props.answer[3]}
+            name= {props.qNum}
+            onClick = {(e) => props.onCorrect(e)}
+          />{props.answer[3]}<br /></CardText>
       </div>
   );
 }
@@ -38,8 +40,8 @@ class Question extends React.Component{
 
   render(){
     return(
-      <h2>
-        {this.props.question[this.props.qNum]}
+      <h2 className = "question">
+        {this.props.qNum + 1 + ". "}{this.props.question[this.props.qNum]}
       </ h2>
     );
   }
@@ -128,16 +130,24 @@ class Quiz extends React.Component {
 
   renderQuiz(){
     return(
-      <form>
-        <Question qNum = {0} question={this.state.question} />
-        <Answer qNum = {0} answer={this.state.userAnswer[0]} onCorrect={i => this.handleClick(i)} q4Correct= {this.state.q1Correct}/>
-        <Question qNum = {1} question={this.state.question} />
-        <Answer qNum = {1} answer={this.state.userAnswer[1]} onCorrect={i => this.handleClick(i)} q4Correct= {this.state.q2Correct}/>
-        <Question qNum = {2} question={this.state.question} />
-        <Answer qNum = {2} answer={this.state.userAnswer[2]} onCorrect={i => this.handleClick(i)} q4Correct= {this.state.q3Correct}/>
-        <Question qNum = {3} question={this.state.question} />
-        <Answer qNum = {3} answer={this.state.userAnswer[3]} onCorrect={i => this.handleClick(i)} q4Correct= {this.state.q4Correct}/>
-        <input type="submit" onClick = {(e) => {
+      <form classname = "container">
+        <div className = "qBundle">
+          <Question qNum = {0} question={this.state.question} />
+          <Answer qNum = {0} answer={this.state.userAnswer[0]} onCorrect={i => this.handleClick(i)} q4Correct= {this.state.q1Correct}/>
+        </div>
+        <div className = "qBundle">
+          <Question qNum = {1} question={this.state.question} />
+          <Answer qNum = {1} answer={this.state.userAnswer[1]} onCorrect={i => this.handleClick(i)} q4Correct= {this.state.q2Correct}/>
+        </div>
+        <div className = "qBundle">
+          <Question qNum = {2} question={this.state.question} />
+          <Answer qNum = {2} answer={this.state.userAnswer[2]} onCorrect={i => this.handleClick(i)} q4Correct= {this.state.q3Correct}/>
+        </div>
+        <div className = "qBundle">
+          <Question qNum = {3} question={this.state.question} />
+          <Answer qNum = {3} answer={this.state.userAnswer[3]} onCorrect={i => this.handleClick(i)} q4Correct= {this.state.q4Correct}/>
+        </div>
+        <input class = "submit" type="submit" onClick = {(e) => {
           e.preventDefault();
           return(
             this.setState((state)=>({
@@ -152,7 +162,7 @@ class Quiz extends React.Component {
   }
   renderResult(){
     return(
-      <h1> You got {this.state.correctQuestions} out of {this.state.totalQuestions}</h1>
+      <h1> You got {this.state.correctQuestions} out of {this.state.totalQuestions} correct!</h1>
     );
   }
 
