@@ -40,9 +40,14 @@ class Question extends React.Component{
 
   render(){
     return(
+      <div>
+      <h2 className = "greenQuestion">
+        Question {this.props.qNum + 1}
+      </h2>
       <h2 className = "question">
-        {this.props.qNum + 1 + ". "}{this.props.question[this.props.qNum]}
+        {this.props.question[this.props.qNum]}
       </ h2>
+      </div>
     );
   }
 }
@@ -76,7 +81,6 @@ class Quiz extends React.Component {
   };
 
   handleClick(e) {
-
     if(e.target.name === "0"){
       if(e.target.value === this.state.answer[0]){
         this.setState((state) => ({

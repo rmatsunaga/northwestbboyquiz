@@ -6,6 +6,17 @@ body {
   text-align: center;
 }
 
+h2{
+  font-family: BebasNeue;
+  font-weight:normal;
+}
+
+.greenQuestion{
+  text-align: left;
+  margin-left: 2em;
+  color: #00ff40;
+}
+
 .answerBundle {
   text-align: left;
   margin-left: 2em;
@@ -18,6 +29,8 @@ body {
   padding: 5px;
   background-color: #E0E0E0;
 }
+
+
 
 @media (min-width: 550px) {
   .container{
@@ -33,9 +46,13 @@ body {
   .answerBundle  p{
     text-align: left;
   }
-/*  .qBundle .answerBundle{
-    text-align: left;
-  }*/
+
+  .greenQuestion{
+    float: left;
+    display: inline-block;
+
+  }
+
   .submit{
     height: 5em;
     width: 10em;
