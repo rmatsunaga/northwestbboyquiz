@@ -8,30 +8,30 @@ function Answer(props) {
 
     return(
       <div className = "answerBundle">
-        <CardText><input
+        <div className = "oneAnswer"><input
           type="radio"
           value = {props.answer[0]}
           name= {props.qNum}
           onClick = {(e) => props.onCorrect(e)}
-        />{props.answer[0]}<br /></CardText>
-        <CardText><input
+        />{props.answer[0]}<br /></div>
+        <div className = "oneAnswer"><input
           type="radio"
           value = {props.answer[1]}
           name= {props.qNum}
           onClick = {(e) => props.onCorrect(e)}
-        />{props.answer[1]}<br /></CardText>
-        <CardText><input
+        />{props.answer[1]}<br /></div>
+        <div className = "oneAnswer"><input
           type="radio"
           value = {props.answer[2]}
           name= {props.qNum}
           onClick = {(e) => props.onCorrect(e)}
-        />{props.answer[2]}<br /></CardText>
-        <CardText>  <input
+        />{props.answer[2]}<br /></div>
+        <div className = "oneAnswer"><input
             type="radio"
             value = {props.answer[3]}
             name= {props.qNum}
             onClick = {(e) => props.onCorrect(e)}
-          />{props.answer[3]}<br /></CardText>
+          />{props.answer[3]}<br /></div>
       </div>
   );
 }
@@ -130,24 +130,24 @@ class Quiz extends React.Component {
 
   renderQuiz(){
     return(
-      <form classname = "container">
-        <div className = "qBundle">
+      <form className = "container">
+        <div className = "qBundle"><CardText>
           <Question qNum = {0} question={this.state.question} />
           <Answer qNum = {0} answer={this.state.userAnswer[0]} onCorrect={i => this.handleClick(i)} q4Correct= {this.state.q1Correct}/>
-        </div>
-        <div className = "qBundle">
+        </CardText></div>
+        <div className = "qBundle"><CardText>
           <Question qNum = {1} question={this.state.question} />
           <Answer qNum = {1} answer={this.state.userAnswer[1]} onCorrect={i => this.handleClick(i)} q4Correct= {this.state.q2Correct}/>
-        </div>
-        <div className = "qBundle">
+        </CardText></div>
+        <div className = "qBundle"><CardText>
           <Question qNum = {2} question={this.state.question} />
           <Answer qNum = {2} answer={this.state.userAnswer[2]} onCorrect={i => this.handleClick(i)} q4Correct= {this.state.q3Correct}/>
-        </div>
-        <div className = "qBundle">
+        </CardText></div>
+        <div className = "qBundle"><CardText>
           <Question qNum = {3} question={this.state.question} />
           <Answer qNum = {3} answer={this.state.userAnswer[3]} onCorrect={i => this.handleClick(i)} q4Correct= {this.state.q4Correct}/>
-        </div>
-        <input class = "submit" type="submit" onClick = {(e) => {
+        </CardText></div>
+        <input className = "submit" type="submit" onClick = {(e) => {
           e.preventDefault();
           return(
             this.setState((state)=>({
