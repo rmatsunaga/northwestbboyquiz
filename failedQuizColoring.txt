@@ -1,36 +1,36 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Card, CardText, Button } from 'reactstrap';
+import { Card, CardImg, CardText, CardBody,
+  CardTitle, CardSubtitle, Button } from 'reactstrap';
 import './index.css';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 function Answer(props) {
-
     return(
       <div className = "answerBundle">
-        <div className = "oneAnswer"><input
+        <div className = 'oneAnswer ${props.qNum + 0}'><input
           type="radio"
           value = {props.answer[0]}
           name= {props.qNum}
-          onClick = {(e) => props.onCorrect(e)}
+          onClick = {(e) => props.onCorrect(e, props.qNum)}
         />{props.answer[0]}<br /></div>
-        <div className = "oneAnswer"><input
+        <div className = 'oneAnswer ${props.qNum + 1}'><input
           type="radio"
           value = {props.answer[1]}
           name= {props.qNum}
-          onClick = {(e) => props.onCorrect(e)}
+          onClick = {(e) => props.onCorrect(e, props.qNum)}
         />{props.answer[1]}<br /></div>
-        <div className = "oneAnswer"><input
+        <div className = 'oneAnswer ${props.qNum + 2}'><input
           type="radio"
           value = {props.answer[2]}
           name= {props.qNum}
-          onClick = {(e) => props.onCorrect(e)}
+          onClick = {(e) => props.onCorrect(e, props.qNum)}
         />{props.answer[2]}<br /></div>
-        <div className = "oneAnswer"><input
+        <div className = 'oneAnswer ${props.qNum + 3}'><input
             type="radio"
             value = {props.answer[3]}
             name= {props.qNum}
-            onClick = {(e) => props.onCorrect(e)}
+            onClick = {(e) => props.onCorrect(e, props.qNum)}
           />{props.answer[3]}<br /></div>
       </div>
   );
@@ -76,11 +76,42 @@ class Quiz extends React.Component {
       q1Correct: false,
       q2Correct: false,
       q3Correct: false,
-      q4Correct: false
+      q4Correct: false,
+      q1Selected: null,
+      q2Selected: null,
+      q3Selected: null,
+      q4Selected: null
     };
   };
 
-  handleClick(e) {
+  handleClick(e, qACode) {
+    // Change colors for selected, return previously selected back to normal styling.
+    if(qACode === "0") {
+      if(this.state.q1Selected !== null) {
+        document.getElementsByClassName("${this.state.q1Selected}").style.backgroundColor="#E0E0E0";
+        document.getElementsByClassName("${this.state.q1Selected}").style.color="black";
+      }
+    } else if(qACode === "1") {
+      if(this.state.q1Selected !== null) {
+        document.getElementsByClassName("${this.state.q2Selected}").style.backgroundColor="#E0E0E0";
+        document.getElementsByClassName("${this.state.q2Selected}").style.color="black";
+      }
+    } else if(qACode === "2") {
+      if(this.state.q1Selected !== null) {
+        document.getElementsByClassName("${this.state.q3Selected}").style.backgroundColor="#E0E0E0";
+        document.getElementsByClassName("${this.state.q3Selected}").style.color="black";
+      }
+    } else {
+      if(this.state.q1Selected !== null) {
+        document.getElementsByClassName("${this.state.q4Selected}").style.backgroundColor="#E0E0E0";
+        document.getElementsByClassName("${this.state.q4Selected}").style.color="black";
+      }
+    }
+    this.setState((state)=>({
+      q1Selected: qACode
+    }))
+    document.getElementsByClassName("." + e.target.qACode).style.backgroundColor="#33FDFF";
+    document.getElementsByClassName("." + e.target.qACode).style.color="white";
     if(e.target.name === "0"){
       if(e.target.value === this.state.answer[0]){
         this.setState((state) => ({
@@ -134,39 +165,45 @@ class Quiz extends React.Component {
 
   renderQuiz(){
     return(
-      <ReactCSSTransitionGroup transitionName="slide" transitionEnterTimeout={500} transitionLeaveTimeout={500} transitionAppear={true} transitionAppearTimeout={500}>
-        <form className = "container">
-          <div className = "qBundle"><Card><CardText>
-            <Question qNum = {0} question={this.state.question} />
+      <form className = "container">
+        <div className = "qBundle"><Card><CardText>
+          <Question qNum = {0} question={this.state.question} />
+          <ReactCSSTransitionGroup transitionName="slide" transitionEnterTimeout={500} transitionLeaveTimeout={500} transitionAppear={true} transitionAppearTimeout={500}>
             <Answer qNum = {0} answer={this.state.userAnswer[0]} onCorrect={i => this.handleClick(i)} q4Correct= {this.state.q1Correct}/>
-          </CardText></Card></div>
+          </ReactCSSTransitionGroup>
+        </CardText></Card></div>
 
-          <div className = "qBundle"><Card><CardText>
-            <Question qNum = {1} question={this.state.question} />
+        <div className = "qBundle"><Card><CardText>
+          <Question qNum = {1} question={this.state.question} />
+          <ReactCSSTransitionGroup transitionName="slide" transitionEnterTimeout={500} transitionLeaveTimeout={500} transitionAppear={true} transitionAppearTimeout={500}>
             <Answer qNum = {1} answer={this.state.userAnswer[1]} onCorrect={i => this.handleClick(i)} q4Correct= {this.state.q2Correct}/>
-          </CardText></Card></div>
+          </ReactCSSTransitionGroup>
+        </CardText></Card></div>
 
-          <div className = "qBundle"><Card><CardText>
-            <Question qNum = {2} question={this.state.question} />
+        <div className = "qBundle"><Card><CardText>
+          <Question qNum = {2} question={this.state.question} />
+          <ReactCSSTransitionGroup transitionName="slide" transitionEnterTimeout={500} transitionLeaveTimeout={500} transitionAppear={true} transitionAppearTimeout={500}>
             <Answer qNum = {2} answer={this.state.userAnswer[2]} onCorrect={i => this.handleClick(i)} q4Correct= {this.state.q3Correct}/>
-          </CardText></Card></div>
+          </ReactCSSTransitionGroup>
+        </CardText></Card></div>
 
-          <div className = "qBundle"><Card><CardText>
-            <Question qNum = {3} question={this.state.question} />
+        <div className = "qBundle"><Card><CardText>
+          <Question qNum = {3} question={this.state.question} />
+          <ReactCSSTransitionGroup transitionName="slide" transitionEnterTimeout={500} transitionLeaveTimeout={500} transitionAppear={true} transitionAppearTimeout={500}>
             <Answer qNum = {3} answer={this.state.userAnswer[3]} onCorrect={i => this.handleClick(i)} q4Correct= {this.state.q4Correct}/>
-          </CardText></Card></div>
+          </ReactCSSTransitionGroup>
+        </CardText></Card></div>
 
-          <input className = "submit" type="submit" onClick = {(e) => {
-            e.preventDefault();
-            return(
-              this.setState((state)=>({
-                result: !this.state.result,
-                correctQuestions: this.state.correctQuestions
-              }))
-            );
-          } }/>
-        </form>
-      </ReactCSSTransitionGroup>
+        <input className = "submit" type="submit" onClick = {(e) => {
+          e.preventDefault();
+          return(
+            this.setState((state)=>({
+              result: !this.state.result,
+              correctQuestions: this.state.correctQuestions
+            }))
+          );
+        } }/>
+      </form>
     );
 
   }
